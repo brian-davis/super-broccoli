@@ -1,24 +1,34 @@
-# README
+# Link Shortener
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails 5 JSON api app for building shortlinks.
 
-Things you may want to cover:
+Using mysql.
 
-* Ruby version
+## Create ##
 
-* System dependencies
+POST to localhost:3000/shortlinks
 
-* Configuration
+JSON request body:
 
-* Database creation
+    {
+      "shortlink": {
+        "source": "https://www.example.com"
+      }
+    }
 
-* Database initialization
+JSON response body:
 
-* How to run the test suite
+    {
+        "shortlink": {
+            "source": "https://www.example.com",
+            "slug": "xtJGkB"
+        }
+    }
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## Click ##
 
-* ...
+GET localhost:3000/z93E8E
+
+Will redirect to https://www.example.com.
+
