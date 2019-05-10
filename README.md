@@ -32,3 +32,4 @@ GET localhost:3000/z93E8E
 
 Will redirect to https://www.example.com.
 
+AUTH TODO
