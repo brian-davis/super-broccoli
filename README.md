@@ -28,7 +28,7 @@ JSON response body:
 
 ## Click ##
 
-GET localhost:3000/z93E8E
+GET localhost:3000/xtJGkB
 
 Will redirect to https://www.example.com.
 
