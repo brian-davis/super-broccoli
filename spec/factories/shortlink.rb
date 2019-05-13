@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :shortlink, class: Shortlink do
-    source { "http://www.example.com" }
+    source { Faker::Internet.url }
   end
 end

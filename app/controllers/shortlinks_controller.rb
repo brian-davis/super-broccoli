@@ -1,11 +1,9 @@
 class ShortlinksController < ApplicationController
   def create
-    shortlink = Shortlink.new(create_params)
+    shortlink = Shortlink.first_or_initialize(create_params)
+    save_status = shortlink.new_record? ? :created : :ok
     if shortlink.save
-      render({
-        json: shortlink.to_json,
-        status: :created
-      })
+      render({ json: shortlink.to_json, status: save_status })
     else
       errors = shortlink.errors.full_messages
       render({ json: { errors: errors }, status: :unprocessable_entity })

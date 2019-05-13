@@ -13,6 +13,8 @@ class Shortlink < ApplicationRecord
   validates_presence_of :source
   validates_with ShortlinkSourceValidator
 
+  validates_uniqueness_of :source # TODO: add index db validation, scoped to tenant, once multitenant.
+
   # Uniqueness constraint at db level.
   # No default value prevents blank value at save.
   before_save :set_slug
@@ -30,7 +32,7 @@ class Shortlink < ApplicationRecord
   private
 
   def set_slug
-    self.slug = generate_slug
+    self.slug = generate_slug unless persisted? # don't reset
   end
 
   def generate_slug

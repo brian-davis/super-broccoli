@@ -5,6 +5,10 @@ RSpec.describe Shortlink, type: :model do
     describe 'source' do
       it { should validate_presence_of(:source) }
 
+      # TODO: scope to tenant once multitenant
+      subject { FactoryBot.create(:shortlink) }
+      it { should validate_uniqueness_of(:source) }
+
       describe 'format' do
         context 'valid' do
           it 'accepts valid shortlinks' do
@@ -31,6 +35,15 @@ RSpec.describe Shortlink, type: :model do
         shortlink.save
         shortlink.reload
         expect(shortlink.slug).to match(/[a-zA-Z0-9\-_]{6}/)
+      end
+
+      it 'will only set a new slug for new records' do
+        shortlink = FactoryBot.create(:shortlink)
+        before = shortlink.slug
+        shortlink.save
+        shortlink.reload
+        after = shortlink.slug
+        expect(after).to eq(before)
       end
     end
 

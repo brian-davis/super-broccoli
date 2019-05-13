@@ -5,8 +5,11 @@ RSpec.describe 'shortlinks catch', type: :request do
     context 'valid' do
       it 'matches a shortlink dynamically based on slug' do
         shortlink = FactoryBot.create(:shortlink)
-        get "/#{shortlink.slug}"
-        expect(response).to redirect_to('http://www.example.com')
+        source = shortlink.source
+        slug = shortlink.slug
+
+        get "/#{slug}"
+        expect(response).to redirect_to(source)
       end
 
       it 'increments the click_count' do

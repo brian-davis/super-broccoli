@@ -4,15 +4,33 @@ RSpec.describe ShortlinksController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       it 'returns http created' do
-        post_params = { shortlink: { source: 'https://www.example.com' } }
+        attrs = FactoryBot.attributes_for(:shortlink)
+        # => {:source=>"http://johnston.biz/hilton.treutel"}
+
+        post_params = { shortlink: attrs }
         expect do
           post(:create, { params: post_params, format: :json })
         end.to change { Shortlink.count }.by(1)
         expect(response).to have_http_status(:created)
 
         json_response = JSON.parse(response.body)
-        expect(json_response.dig('shortlink', 'source')).to eq(post_params.dig(:shortlink, :source))
+        expect(json_response.dig('shortlink', 'source')).to eq(attrs[:source])
         expect(json_response.dig('shortlink', 'slug')).to match(/[a-zA-Z0-9\-_]{6}/)
+      end
+
+      # TODO: scope to tenant once multitenant
+      it 'will return an existing record if given a duplicate source url' do
+        existing_record = FactoryBot.create(:shortlink)
+
+        post_params = { shortlink: { source: existing_record.source } }
+        expect do
+          post(:create, { params: post_params, format: :json })
+        end.to change { Shortlink.count }.by(0)
+
+        expect(response).to have_http_status(:ok) # not :created
+        json_response = JSON.parse(response.body)
+        expect(json_response.dig('shortlink', 'source')).to eq(existing_record.source)
+        expect(json_response.dig('shortlink', 'slug')).to eq(existing_record.slug)
       end
     end
 
