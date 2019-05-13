@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_10_153227) do
+ActiveRecord::Schema.define(version: 2019_05_13_191717) do
 
   create_table "shortlinks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "source", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_05_10_153227) do
     t.integer "click_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
     t.index ["slug"], name: "index_shortlinks_on_slug", unique: true
   end
 

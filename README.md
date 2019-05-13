@@ -33,3 +33,11 @@ GET localhost:3000/xtJGkB
 Will redirect to https://www.example.com.
 
 AUTH TODO
+
+
+## Deployment ##
+
+Whenever gem sets crontab to run update rake task:
+
+    $ whenever --update-crontab link_shortener_api
+    $ crontab -l
