@@ -12,7 +12,7 @@ RSpec.describe ShortlinksController, type: :controller do
 
         json_response = JSON.parse(response.body)
         expect(json_response.dig('shortlink', 'source')).to eq(post_params.dig(:shortlink, :source))
-        expect(json_response.dig('shortlink', 'slug')).to match(/[a-zA-Z0-9]{6}/)
+        expect(json_response.dig('shortlink', 'slug')).to match(/[a-zA-Z0-9\-_]{6}/)
       end
     end
 

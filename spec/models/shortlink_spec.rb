@@ -25,10 +25,12 @@ RSpec.describe Shortlink, type: :model do
     end
 
     describe 'slug' do
-      it 'will set a unique value before validation' do
+      it 'will set a unique value before commit' do
         shortlink = FactoryBot.build(:shortlink)
-        expect(shortlink).to be_valid
-        expect(shortlink.slug).to match(/[a-zA-Z0-9]{6}/)
+        expect(shortlink.slug).to be_nil
+        shortlink.save
+        shortlink.reload
+        expect(shortlink.slug).to match(/[a-zA-Z0-9\-_]{6}/)
       end
     end
   end

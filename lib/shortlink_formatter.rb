@@ -4,24 +4,12 @@ module ShortlinkFormatter
 
     class << self
       def generate
-        SecureRandom.alphanumeric(SLUG_SIZE)
+        # 68_719_476_736 possible slugs
+        SecureRandom.urlsafe_base64[0...SLUG_SIZE]
       end
 
       def matcher
-        /[a-zA-Z0-9]{#{SLUG_SIZE}}/
-      end
-    end
-  end
-
-  module Source
-    class << self
-      def matcher
-        URI::regexp(%w(http https))
-      end
-
-      def valid?(source)
-        (matcher === source) &&
-        URI::parse(source).host.present?
+        /[a-zA-Z0-9\-_]{#{SLUG_SIZE}}/
       end
     end
   end

@@ -9,16 +9,13 @@
 # | created_at  | datetime     | NO   |     | NULL    |                |
 # | updated_at  | datetime     | NO   |     | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
-# 6 rows in set (0.00 sec)
-
 class Shortlink < ApplicationRecord
-  before_validation :set_slug
-
   validates_presence_of :source
-  validate :validate_source
+  validates_with ShortlinkSourceValidator
 
-  validates_presence_of :slug
-  validates_uniqueness_of :slug
+  # Uniqueness constraint at db level.
+  # No default value prevents blank value at save.
+  before_save :set_slug
 
   def as_json(options)
     filtered = %w[id click_count created_at updated_at]
@@ -35,12 +32,6 @@ class Shortlink < ApplicationRecord
     loop do
       new_shortlink = ShortlinkFormatter::Slug.generate
       break new_shortlink unless Shortlink.where(slug: new_shortlink).exists?
-    end
-  end
-
-  def validate_source
-    if source.present? && !ShortlinkFormatter::Source.valid?(source)
-      errors.add(:source, 'is not a valid shortlink')
     end
   end
 end
