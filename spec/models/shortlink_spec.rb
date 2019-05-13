@@ -29,7 +29,7 @@ RSpec.describe Shortlink, type: :model do
     end
 
     describe 'slug' do
-      it 'will set a unique value before save' do
+      it 'will set a unique value before create' do
         shortlink = FactoryBot.build(:shortlink)
         expect(shortlink.slug).to be_nil
         shortlink.save
