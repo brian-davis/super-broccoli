@@ -2,12 +2,27 @@ require 'rails_helper'
 
 RSpec.describe ShortlinksController, type: :controller do
   describe 'POST #create' do
+    let(:current_user) { FactoryBot.create(:user) }
+
     context 'with valid params' do
+      it 'requires authorization' do
+        attrs = FactoryBot.attributes_for(:shortlink)
+        post_params = { shortlink: attrs }
+        request.headers['Auth-Token'] = ''
+
+        expect do
+          post(:create, { params: post_params, format: :json })
+        end.to change { Shortlink.count }.by(0)
+        expect(response).to have_http_status(:unauthorized)
+      end
+
       it 'returns http created' do
         attrs = FactoryBot.attributes_for(:shortlink)
         # => {:source=>"http://johnston.biz/hilton.treutel"}
 
         post_params = { shortlink: attrs }
+        request.headers['Auth-Token'] = current_user.auth_token
+
         expect do
           post(:create, { params: post_params, format: :json })
         end.to change { Shortlink.count }.by(1)
@@ -23,6 +38,9 @@ RSpec.describe ShortlinksController, type: :controller do
         existing_record = FactoryBot.create(:shortlink)
 
         post_params = { shortlink: { source: existing_record.source } }
+        # headers = { 'Auth-Token' => current_user.auth_token }
+        request.headers['Auth-Token'] = current_user.auth_token
+
         expect do
           post(:create, { params: post_params, format: :json })
         end.to change { Shortlink.count }.by(0)
@@ -36,6 +54,7 @@ RSpec.describe ShortlinksController, type: :controller do
 
     context 'with invalid params' do
       it 'returns errors' do
+        request.headers['Auth-Token'] = current_user.auth_token
         post_params = { shortlink: { source: '' } }
 
         expect do

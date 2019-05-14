@@ -1,4 +1,6 @@
 class ShortlinksController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:catch]
+
   def create
     shortlink = Shortlink.first_or_initialize(create_params)
     save_status = shortlink.new_record? ? :created : :ok

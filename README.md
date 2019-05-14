@@ -8,6 +8,12 @@ Using mysql.
 
 POST to localhost:3000/shortlinks
 
+Auth:
+
+Set an 'Auth-Token' header for an existing user:
+
+    request.headers['Auth-Token'] = 'abc123'
+
 JSON request body:
 
     {
