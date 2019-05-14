@@ -2,10 +2,9 @@ class ShortlinksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:catch]
 
   def create
-    shortlink = current_user.shortlinks.first_or_initialize(create_params)
-    save_status = shortlink.new_record? ? :created : :ok
+    shortlink = current_user.shortlinks.find_or_create_by(create_params)
     if shortlink.save
-      render({ json: shortlink.to_json, status: save_status })
+      render({ json: shortlink.to_json, status: :created })
     else
       errors = shortlink.errors.full_messages
       render({ json: { errors: errors }, status: :unprocessable_entity })

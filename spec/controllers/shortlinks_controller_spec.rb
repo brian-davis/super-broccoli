@@ -16,9 +16,9 @@ RSpec.describe ShortlinksController, type: :controller do
         expect(response).to have_http_status(:unauthorized)
       end
 
+      # CREATE
       it 'returns http created' do
         attrs = FactoryBot.attributes_for(:shortlink)
-        # => {:source=>"http://johnston.biz/hilton.treutel"}
 
         post_params = { shortlink: attrs }
         request.headers['Auth-Token'] = current_user.auth_token
@@ -43,7 +43,6 @@ RSpec.describe ShortlinksController, type: :controller do
           post(:create, { params: post_params, format: :json })
         end.to change { Shortlink.count }.by(0)
 
-        expect(response).to have_http_status(:ok) # not :created
         json_response = JSON.parse(response.body)
         expect(json_response.dig('shortlink', 'source')).to eq(existing_record.source)
         expect(json_response.dig('shortlink', 'slug')).to eq(existing_record.slug)
