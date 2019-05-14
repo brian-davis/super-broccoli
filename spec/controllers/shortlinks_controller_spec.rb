@@ -33,12 +33,10 @@ RSpec.describe ShortlinksController, type: :controller do
         expect(json_response.dig('shortlink', 'slug')).to match(/[a-zA-Z0-9\-_]{6}/)
       end
 
-      # TODO: scope to tenant once multitenant
       it 'will return an existing record if given a duplicate source url' do
-        existing_record = FactoryBot.create(:shortlink)
+        existing_record = FactoryBot.create(:shortlink, user: current_user)
 
         post_params = { shortlink: { source: existing_record.source } }
-        # headers = { 'Auth-Token' => current_user.auth_token }
         request.headers['Auth-Token'] = current_user.auth_token
 
         expect do

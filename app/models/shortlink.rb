@@ -10,10 +10,12 @@
 # | updated_at  | datetime     | NO   |     | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
 class Shortlink < ApplicationRecord
+  belongs_to :user
+
   validates_presence_of :source
   validates_with ShortlinkSourceValidator
 
-  validates_uniqueness_of :source # TODO: add index db validation, scoped to tenant, once multitenant.
+  validates_uniqueness_of :source, scope: :user
 
   before_create :set_slug # new record
 

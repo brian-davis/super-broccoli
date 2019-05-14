@@ -1,13 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Shortlink, type: :model do
+  describe 'associations' do
+    it { should belong_to(:user) }
+  end
+
   describe 'validations' do
     describe 'source' do
       it { should validate_presence_of(:source) }
 
-      # TODO: scope to tenant once multitenant
-      subject { FactoryBot.create(:shortlink) }
-      it { should validate_uniqueness_of(:source) }
+      it 'is unique scoped to user' do
+        user1 = FactoryBot.create(:user, client_name: 'idlife')
+        user2 = FactoryBot.create(:user, client_name: 'tupperware')
+
+        existing_shortling = FactoryBot.create(:shortlink, user: user1)
+
+        subject1 = FactoryBot.build(:shortlink, source: existing_shortling.source, user: user1)
+        expect(subject1).not_to be_valid
+        expect('has already been taken').to be_in(subject1.errors.messages[:source])
+
+        subject2 = FactoryBot.build(:shortlink, source: existing_shortling.source, user: user2)
+        expect(subject2).to be_valid
+      end
 
       describe 'format' do
         context 'valid' do

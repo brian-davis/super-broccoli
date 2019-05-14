@@ -38,8 +38,6 @@ GET localhost:3000/xtJGkB
 
 Will redirect to https://www.example.com.
 
-AUTH TODO
-
 
 ## Deployment ##
 
