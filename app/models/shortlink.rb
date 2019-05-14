@@ -8,7 +8,10 @@
 # | click_count | int(11)      | YES  |     | 0       |                |
 # | created_at  | datetime     | NO   |     | NULL    |                |
 # | updated_at  | datetime     | NO   |     | NULL    |                |
+# | status      | int(11)      | NO   |     | 0       |                |
+# | user_id     | bigint(20)   | YES  | MUL | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
+
 class Shortlink < ApplicationRecord
   belongs_to :user
 
@@ -25,7 +28,7 @@ class Shortlink < ApplicationRecord
   scope :expire_ready, -> { active.where('created_at < ?', 90.days.ago) }
 
   def as_json(options)
-    filtered = %w[id click_count created_at updated_at]
+    filtered = %w[id user_id click_count created_at updated_at]
     super(options.merge({ root: true, except: filtered }))
   end
 
