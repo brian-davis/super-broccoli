@@ -15,6 +15,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Auth-Token",
+						"value": "6okXN3bDH8jbdG513ryUoimz",
+						"type": "text"
 					}
 				],
 				"body": {
