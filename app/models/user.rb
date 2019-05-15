@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # mysql> describe users;
 # +-------------+--------------+------+-----+---------+----------------+
 # | Field       | Type         | Null | Key | Default | Extra          |
@@ -9,8 +11,9 @@
 # | updated_at  | datetime     | NO   |     | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
 
+# User is the Auth model for the JSON API.
 class User < ApplicationRecord
   has_secure_token :auth_token
 
-  has_many :shortlinks
+  has_many :shortlinks, dependent: :destroy
 end

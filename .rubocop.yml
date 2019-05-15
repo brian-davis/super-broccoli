@@ -1,0 +1,8 @@
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Layout/IndentFirstHashElement:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false

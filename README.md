@@ -6,7 +6,7 @@ Using mysql.
 
 ## Create ##
 
-POST to localhost:3000/shortlinks
+POST to /api/v1/shortlinks
 
 Auth:
 
@@ -34,7 +34,7 @@ JSON response body:
 
 ## Click ##
 
-GET localhost:3000/xtJGkB
+GET /xtJGkB
 
 Will redirect to https://www.example.com.
 

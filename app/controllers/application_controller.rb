@@ -1,15 +1,23 @@
+# frozen_string_literal: true
+
+# ApplicationController has custom methods providing Auth handling for the
+# JSON API.
 class ApplicationController < ActionController::API
-  before_action :authenticate_user!
   attr_reader :current_user
+
+  rescue_from AuthenticationError do |_exception|
+    render({ json: { error: 'Not Authorized' }, status: :unauthorized })
+  end
+
+  before_action :authenticate_user!
 
   private
 
   def authenticate_user!
-    auth_token = request.headers["Auth-Token"]
-    @current_user = User.find_by(auth_token: auth_token) if auth_token
+    auth_token = request.headers['Auth-Token']
+    raise AuthenticationError unless auth_token.present?
 
-    unless @current_user
-      render json: { error: 'Not Authorized' }, status: :unauthorized
-    end
+    @current_user = User.find_by(auth_token: auth_token)
+    raise AuthenticationError unless @current_user
   end
 end

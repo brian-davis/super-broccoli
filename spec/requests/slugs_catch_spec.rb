@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'shortlinks catch', type: :request do
+RSpec.describe 'slugs catch', type: :request do
   describe 'GET #catch' do
     context 'valid' do
       it 'matches a shortlink dynamically based on slug' do
         shortlink = FactoryBot.create(:shortlink)
         source = shortlink.source
         slug = shortlink.slug
-
         get "/#{slug}"
         expect(response).to redirect_to(source)
       end

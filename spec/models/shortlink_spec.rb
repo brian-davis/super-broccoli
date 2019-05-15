@@ -1,3 +1,5 @@
+# frozen_string_literal:true
+
 require 'rails_helper'
 
 RSpec.describe Shortlink, type: :model do
@@ -13,13 +15,18 @@ RSpec.describe Shortlink, type: :model do
         user1 = FactoryBot.create(:user, client_name: 'idlife')
         user2 = FactoryBot.create(:user, client_name: 'tupperware')
 
-        existing_shortling = FactoryBot.create(:shortlink, user: user1)
+        existing_shortlink = FactoryBot.create(:shortlink, user: user1)
 
-        subject1 = FactoryBot.build(:shortlink, source: existing_shortling.source, user: user1)
+        subject1_options = { source: existing_shortlink.source, user: user1 }
+        subject1 = FactoryBot.build(:shortlink, subject1_options)
+
         expect(subject1).not_to be_valid
-        expect('has already been taken').to be_in(subject1.errors.messages[:source])
+        expect('has already been taken').to(
+          be_in(subject1.errors.messages[:source])
+        )
 
-        subject2 = FactoryBot.build(:shortlink, source: existing_shortling.source, user: user2)
+        subject2_options = { source: existing_shortlink.source, user: user2 }
+        subject2 = FactoryBot.build(:shortlink, subject2_options)
         expect(subject2).to be_valid
       end
 
@@ -32,11 +39,13 @@ RSpec.describe Shortlink, type: :model do
 
         context 'invalid' do
           it 'rejects invalid shortlinks' do
-            expect(FactoryBot.build(:shortlink, { source: 'gttp://ww.wrong' })).not_to be_valid
+            link = FactoryBot.build(:shortlink, { source: 'gttp://ww.wrong' })
+            expect(link).not_to be_valid
           end
 
           it 'avoids URI class bug' do
-            expect(FactoryBot.build(:shortlink, { source: 'https://' })).not_to be_valid
+            link = FactoryBot.build(:shortlink, { source: 'https://' })
+            expect(link).not_to be_valid
           end
         end
       end

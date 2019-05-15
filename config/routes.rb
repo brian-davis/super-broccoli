@@ -1,9 +1,14 @@
-# http://guides.rubyonrails.org/routing.html
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :shortlinks, only: [:create]
+  namespace :api do
+    namespace :v1 do
+      resources :shortlinks, only: [:create]
+    end
+  end
 
   get('*slug', {
-    to: 'shortlinks#catch',
+    to: 'slugs#catch',
     constraints: { slug: ShortlinkFormatter::Slug.matcher }
   })
 end

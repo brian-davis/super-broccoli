@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 module ShortlinkFormatter
+  # ShortlinkFormatter::Slug provides utilities for enforcing correct Slug
+  # format across the app.
   module Slug
     SLUG_SIZE = 6
 

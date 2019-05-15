@@ -18,8 +18,106 @@
 					},
 					{
 						"key": "Auth-Token",
-						"value": "6okXN3bDH8jbdG513ryUoimz",
+						"value": "HTfUd3kPFA6QuZ6pjD3hPxM2",
 						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"shortlink\": {\n\t\t\"source\": \"https://github.com/iCentris/pyr\"\n\t}\n}\n"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/shortlinks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"shortlinks"
+					]
+				},
+				"description": "create"
+			},
+			"response": [
+				{
+					"name": "localhost:3000/shortlinks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shortlink\": {\n        \"source\": \"https://www.example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/shortlinks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shortlinks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"fef4d488596d3cb750c27990c86894e9\""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, private, must-revalidate"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "2147b133-e95b-436a-8afd-57ba7500675b"
+						},
+						{
+							"key": "X-Runtime",
+							"value": "0.073701"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"source\": \"https://www.example.com\",\n    \"slug\": \"z93E8E\"\n}"
+				}
+			]
+		},
+		{
+			"name": "localhost:3000/shortlinks unauthorized 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth-Token",
+						"type": "text",
+						"value": "6okXN3bDH8jbdG513ryUoimz",
+						"disabled": true
 					}
 				],
 				"body": {
@@ -33,6 +131,103 @@
 					],
 					"port": "3000",
 					"path": [
+						"shortlinks"
+					]
+				},
+				"description": "create"
+			},
+			"response": [
+				{
+					"name": "localhost:3000/shortlinks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"shortlink\": {\n        \"source\": \"https://www.example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "localhost:3000/shortlinks",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shortlinks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"fef4d488596d3cb750c27990c86894e9\""
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, private, must-revalidate"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "2147b133-e95b-436a-8afd-57ba7500675b"
+						},
+						{
+							"key": "X-Runtime",
+							"value": "0.073701"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"source\": \"https://www.example.com\",\n    \"slug\": \"z93E8E\"\n}"
+				}
+			]
+		},
+		{
+			"name": "localhost:3000/shortlinks unauthorized 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Auth-Token",
+						"type": "text",
+						"value": "incorrect"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"shortlink\": {\n\t\t\"source\": \"https://www.example.com\"\n\t}\n}\n"
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/shortlinks",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
 						"shortlinks"
 					]
 				},
