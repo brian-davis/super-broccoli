@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-# mysql> describe shortlinks;
-# +-------------+--------------+------+-----+---------+----------------+
-# | Field       | Type         | Null | Key | Default | Extra          |
-# +-------------+--------------+------+-----+---------+----------------+
-# | id          | bigint(20)   | NO   | PRI | NULL    | auto_increment |
-# | source      | text         | NO   |     | NULL    |                |
-# | slug        | varchar(255) | NO   | UNI | NULL    |                |
-# | click_count | int(11)      | YES  |     | 0       |                |
-# | created_at  | datetime     | NO   |     | NULL    |                |
-# | updated_at  | datetime     | NO   |     | NULL    |                |
-# | status      | int(11)      | NO   |     | 0       |                |
-# | user_id     | bigint(20)   | YES  | MUL | NULL    |                |
-# +-------------+--------------+------+-----+---------+----------------+
+# == Schema Information
+#
+# Table name: shortlinks
+#
+#  id          :bigint           not null, primary key
+#  source      :text(65535)      not null
+#  slug        :string(255)      not null
+#  click_count :integer          default(0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  status      :integer          default("active"), not null
+#  user_id     :bigint
+#
 
 # Shortlink is the core model of the app.  Authorized users create Shortlinks
 # through the JSON API with a :source parameter.  A :slug attribute is
@@ -20,6 +20,8 @@
 # shared link, which will redirect back to the source.
 class Shortlink < ApplicationRecord
   belongs_to :user
+
+  has_many :clicks, dependent: :destroy
 
   validates_presence_of :source
   validates_with ShortlinkSourceValidator

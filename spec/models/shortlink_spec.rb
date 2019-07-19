@@ -1,10 +1,34 @@
 # frozen_string_literal:true
 
+# == Schema Information
+#
+# Table name: shortlinks
+#
+#  id          :bigint           not null, primary key
+#  source      :text(65535)      not null
+#  slug        :string(255)      not null
+#  click_count :integer          default(0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  status      :integer          default("active"), not null
+#  user_id     :bigint
+#
+
+
 require 'rails_helper'
 
 RSpec.describe Shortlink, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
+    it { should have_many(:clicks).dependent(:destroy) }
+
+    describe 'counter cahce' do
+      let(:shortlink) { FactoryBot.create(:shortlink) }
+
+      it 'increments click_count' do
+        expect { shortlink.clicks.create }.to change { shortlink.click_count }.from(0).to(1)
+      end
+    end
   end
 
   describe 'validations' do

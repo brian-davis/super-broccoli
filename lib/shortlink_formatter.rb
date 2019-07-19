@@ -18,3 +18,4 @@ module ShortlinkFormatter
     end
   end
 end
+# TODO - spec
