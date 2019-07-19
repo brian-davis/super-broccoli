@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_19_153840) do
+ActiveRecord::Schema.define(version: 2019_07_19_200944) do
 
   create_table "clicks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "shortlink_id"
     t.string "ip_address"
     t.string "user_agent"
     t.string "referer"
-    t.string "device"
-    t.string "browser"
+    t.integer "device"
+    t.integer "browser"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "platform"
     t.index ["shortlink_id"], name: "index_clicks_on_shortlink_id"
   end
 

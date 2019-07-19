@@ -1,9 +1,6 @@
 require 'browser/aliases'
 Browser::Base.include(Browser::Aliases)
 
-# link_shortener_api/lib/browser_decorator.rb
-Browser::Base.include(BrowserBaseDecorator)
-
 # > c = Click.last
 #   Click Load (0.9ms)  SELECT  `clicks`.* FROM `clicks` ORDER BY `clicks`.`id` DESC LIMIT 1
 # => #<Click id: 3, shortlink_id: 12, ip_address: "10.150.147.103", user_agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac...", referer: nil, device: nil, browser: nil, location: nil, created_at: "2019-07-19 17:51:21", updated_at: "2019-07-19 17:51:21">
