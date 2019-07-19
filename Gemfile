@@ -51,3 +51,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bcrypt'
 gem 'whenever'
+
+# https://github.com/fnando/browser
+gem 'browser'

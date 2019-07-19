@@ -16,4 +16,21 @@
 
 class Click < ApplicationRecord
   belongs_to :shortlink, counter_cache: :click_count
+
+  before_create :set_device
+  before_create :set_browser
+
+  def user_agent_inspector
+    @user_agent_inspector ||= Browser.new(user_agent)
+  end
+
+  private
+
+  def set_device
+    self.device = user_agent_inspector.device_or_desktop
+  end
+
+  def set_browser
+    self.browser = user_agent_inspector.name
+  end
 end
