@@ -19,12 +19,23 @@ class Click < ApplicationRecord
 
   before_create :set_device
   before_create :set_browser
+  # before_create :set_location # TODO
+
+  scope :last_24_hours, -> { where({ created_at: (24.hours.ago..Time.now) }) }
+  scope :last_7_days, -> { where({ created_at: (7.days.ago..Time.now) }) }
+  scope :last_30_days, -> { where({ created_at: (30.days.ago..Time.now) }) }
+
+  # enum :browser_id
 
   def user_agent_inspector
     @user_agent_inspector ||= Browser.new(user_agent)
   end
 
   private
+
+  # def set_location
+  #   # TODO
+  # end
 
   def set_device
     self.device = user_agent_inspector.device_or_desktop

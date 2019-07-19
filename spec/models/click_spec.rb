@@ -48,6 +48,57 @@ RSpec.describe Click, type: :model do
   end
 
   describe 'scopes' do
+    let!(:shortlink) { FactoryBot.create(:shortlink) }
+
+    let!(:today_click) { shortlink.clicks.create }
+
+    let!(:this_week_click) do
+      c = shortlink.clicks.create
+      c.update_attributes(created_at: 2.days.ago)
+      c
+    end
+
+    let!(:this_month_click) do
+      c = shortlink.clicks.create
+      c.update_attributes(created_at: 2.weeks.ago)
+      c
+    end
+
+    let!(:old_click) do
+      c = shortlink.clicks.create
+      c.update_attributes(created_at: 2.months.ago)
+      c
+    end
+
+    describe 'last 24 hours' do
+      it 'queries created_at' do
+        scope = described_class.last_24_hours
+        expect(today_click).to be_in(scope)
+        expect(this_week_click).not_to be_in(scope)
+        expect(this_month_click).not_to be_in(scope)
+        expect(old_click).not_to be_in(scope)
+      end
+    end
+
+    describe 'last 7 days' do
+      it 'queries created_at' do
+        scope = described_class.last_7_days
+        expect(today_click).to be_in(scope)
+        expect(this_week_click).to be_in(scope)
+        expect(this_month_click).not_to be_in(scope)
+        expect(old_click).not_to be_in(scope)
+      end
+    end
+
+    describe 'last 30 days' do
+      it 'queries created_at' do
+        scope = described_class.last_30_days
+        expect(today_click).to be_in(scope)
+        expect(this_week_click).to be_in(scope)
+        expect(this_month_click).to be_in(scope)
+        expect(old_click).not_to be_in(scope)
+      end
+    end
   end
 
   describe 'callbacks' do
