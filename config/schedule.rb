@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -23,8 +25,10 @@ every 1.day do
   rake 'set_expired'
 end
 
+# rubocop:disable Metrics/LineLength
 # link_shortener_api$ whenever
 # 0 0 * * * /bin/bash -l -c 'cd /home/briandavis/projects/link_shortener_api && RAILS_ENV=production bundle exec rake set_expired --silent'
 
 # ## [message] Above is your schedule file converted to cron syntax; your crontab file was not updated.
 # ## [message] Run `whenever --help' for more options.
+# rubocop:enable Metrics/LineLength

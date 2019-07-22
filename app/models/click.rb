@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: clicks
@@ -14,7 +16,7 @@
 #  updated_at   :datetime         not null
 #  platform     :integer
 #
-
+# Click is the main model for analytics.
 class Click < ApplicationRecord
   belongs_to :shortlink, counter_cache: :click_count
 
@@ -27,26 +29,26 @@ class Click < ApplicationRecord
   scope :last_7_days, -> { where({ created_at: (7.days.ago..Time.now) }) }
   scope :last_30_days, -> { where({ created_at: (30.days.ago..Time.now) }) }
 
-  enum browser: [
-    :nokia, :uc_browser, :phantom_js,
-    :blackberry_browser, # this is an override for :blackberry
-    :opera, :edge, :ie, :firefox, :otter, :facebook, :instagram, :weibo, :qq, :alipay, :electron,
-    :chrome, :safari, :micro_messenger, :generic
+  # :blackberry_browser is an override for the gem
+  enum browser: %i[
+    nokia uc_browser phantom_js blackberry_browser opera edge ie firefox otter facebook instagram
+    weibo qq alipay electron chrome safari micro_messenger generic
   ]
 
-  enum device: [
-    :xbox_one, :xbox_360, :surface, :tv, :playbook, :wiiu, :wii, :switch, :kindle_fire, :kindle,
-    :ps4, :ps3, :psvita, :psp, :ipad, :iphone, :ipod_touch, :unknown
+  enum device: %i[
+    xbox_one xbox_360 surface tv playbook wiiu wii switch kindle_fire kindle ps4 ps3 psvita psp
+    ipad iphone ipod_touch unknown
   ]
 
-  enum platform: [
-    :adobe_air, :chrome_os, :windows_mobile, :windows_phone, :android, :blackberry, :ios, :mac,
-    :firefox_os, :windows, :linux, :other
+  enum platform: %i[
+    adobe_air chrome_os windows_mobile windows_phone android blackberry ios mac firefox_os windows
+    linux other
   ]
 
-  scope :desktop, -> { where(platform: [:chrome_os, :mac, :windows, :linux]) }
+  scope :desktop, -> { where(platform: %i[chrome_os mac windows linux]) }
+
   scope :mobile, -> {
-    where(platform: [:windows_mobile, :windows_phone, :android, :blackberry, :ios, :firefox_os])
+    where(platform: %i[windows_mobile windows_phone android blackberry ios firefox_os])
   }
 
   def user_agent_inspector

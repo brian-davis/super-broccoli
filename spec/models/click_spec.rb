@@ -16,8 +16,6 @@
 #  updated_at   :datetime         not null
 #  platform     :integer
 #
-
-
 require 'rails_helper'
 
 RSpec.describe Click, type: :model do
@@ -106,16 +104,18 @@ RSpec.describe Click, type: :model do
 
     describe 'enums' do
       let!(:shortlink) { FactoryBot.create(:shortlink) }
-      let!(:ios_click) {
+      let!(:ios_click) do
         shortlink.clicks.create({
-          user_agent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Mobile/15E148 Safari/604.1'
+          user_agent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) ' \
+            'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Mobile/15E148 Safari/604.1'
         })
-      }
-      let!(:desktop_click) {
+      end
+      let!(:desktop_click) do
         shortlink.clicks.create({
-          user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
+          user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
+                      'Chrome/72.0.3626.121 Safari/537.36'
         })
-      }
+      end
 
       it 'queries device enum scopes' do
         expect(ios_click).to be_in(described_class.iphone)

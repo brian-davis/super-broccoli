@@ -14,7 +14,6 @@
 #  user_id     :bigint
 #
 
-
 require 'rails_helper'
 
 RSpec.describe Shortlink, type: :model do

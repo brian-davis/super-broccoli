@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ChangeClickColumns uses enums
 class ChangeClickColumns < ActiveRecord::Migration[5.2]
   def up
     change_column :clicks, :device, :integer

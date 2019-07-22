@@ -49,9 +49,7 @@ class Shortlink < ApplicationRecord
   def generate_slug
     loop do
       new_shortlink = ShortlinkFormatter::Slug.generate
-      unless Shortlink.active.where(slug: new_shortlink).exists?
-        break new_shortlink
-      end
+      break new_shortlink unless Shortlink.active.where(slug: new_shortlink).exists?
     end
   end
 end

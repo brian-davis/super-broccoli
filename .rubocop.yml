@@ -6,3 +6,23 @@ Layout/IndentFirstHashElement:
 
 Style/CaseEquality:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 100
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**'
+
+Layout/DefEndAlignment:
+  Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false

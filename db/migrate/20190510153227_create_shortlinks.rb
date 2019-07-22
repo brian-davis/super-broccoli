@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CreateShortlinks builds the :shortlinks table
 class CreateShortlinks < ActiveRecord::Migration[5.2]
   def change
     create_table :shortlinks do |t|

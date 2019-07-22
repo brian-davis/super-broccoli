@@ -21,4 +21,4 @@ class ShortlinkSourceValidator < ActiveModel::Validator
   end
   # rubocop:enable Style/ColonMethodCall
 end
-# TODO - spec
+# TODO: spec

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/LineLength
 require 'browser/aliases'
 Browser::Base.include(Browser::Aliases)
 
@@ -140,7 +143,6 @@ Browser::Base.include(Browser::Aliases)
 # > Browser.matchers.map { |b| b.new('').id }
 # => [:nokia, :uc_browser, :phantom_js, :blackberry, :opera, :edge, :ie, :firefox, :otter, :facebook, :instagram, :weibo, :qq, :alipay, :electron, :chrome, :safari, :micro_messenger, :generic]
 
-
 # > pp Browser::Device.matchers.map { |b| [b.new('').id, b.new('').name] }.to_h
 # {:xbox_one=>"Xbox One",
 #  :xbox_360=>"Xbox 360",
@@ -163,7 +165,6 @@ Browser::Base.include(Browser::Aliases)
 # > Browser::Device.matchers.map { |b| b.new('').id }
 # => [:xbox_one, :xbox_360, :surface, :tv, :playbook, :wiiu, :wii, :switch, :kindle_fire, :kindle, :ps4, :ps3, :psvita, :psp, :ipad, :iphone, :ipod_touch, :unknown]
 
-
 # > pp Browser::Platform.matchers.map { |b| [b.new('').id, b.new('').name] }.to_h
 # {:adobe_air=>"Adobe AIR",
 #  :chrome_os=>"Chrome OS",
@@ -179,3 +180,5 @@ Browser::Base.include(Browser::Aliases)
 #  :other=>"Other"}
 # > Browser::Platform.matchers.map { |b| b.new('').id }
 # => [:adobe_air, :chrome_os, :windows_mobile, :windows_phone, :android, :blackberry, :ios, :mac, :firefox_os, :windows, :linux, :other]
+
+# rubocop:enable Metrics/LineLength

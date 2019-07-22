@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# ApplicationController has custom methods providing Auth handling for the
-# JSON API.
+# ApplicationController has custom methods providing Auth handling for the JSON API.
 class ApplicationController < ActionController::API
   attr_reader :current_user
 

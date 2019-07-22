@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 clients = %w[
-            client1
-            client2
-            client3
-          ]
+  client1
+  client2
+  client3
+]
 
 before_count = User.all.size
 
