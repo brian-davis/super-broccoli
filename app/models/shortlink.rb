@@ -26,7 +26,7 @@ class Shortlink < ApplicationRecord
   validates_presence_of :source
   validates_with ShortlinkSourceValidator
 
-  validates_uniqueness_of :source, scope: :user
+  validates_uniqueness_of :source, scope: [:user, :status]
 
   before_create :set_slug # new record
 

@@ -53,6 +53,10 @@ RSpec.describe Shortlink, type: :model do
         expect(subject2).to be_valid
       end
 
+      it 'allows an archived link and an active link scoped to user' do
+        pending
+      end
+
       describe 'format' do
         context 'valid' do
           it 'accepts valid shortlinks' do

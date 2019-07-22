@@ -6,14 +6,9 @@ class SlugsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:catch]
 
   def catch
-    shortlink = Shortlink.find_by(slug: catch_params[:slug])
-
-    if shortlink
-      shortlink.clicks.create(click_attrs)
-      redirect_to(shortlink.source)
-    else
-      render({ status: :not_found })
-    end
+    shortlink = Shortlink.find_by!(slug: catch_params[:slug])
+    shortlink.clicks.create(click_attrs)
+    redirect_to(shortlink.source)
   end
 
   private
