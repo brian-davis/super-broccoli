@@ -8,6 +8,10 @@ class ApplicationController < ActionController::API
     render({ json: { error: 'Not Authorized' }, status: :unauthorized })
   end
 
+  rescue_from ActiveRecord::RecordNotFound do |_exception|
+    render({ json: { error: 'Record not found!' }, status: :not_found })
+  end
+
   before_action :authenticate_user!
 
   private

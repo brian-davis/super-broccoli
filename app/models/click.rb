@@ -25,11 +25,12 @@ class Click < ApplicationRecord
   before_create :set_platform
   # before_create :set_location # TODO
 
+  # TODO: set the application timezone. or make it default to UTC
   scope :last_24_hours, -> { where({ created_at: (24.hours.ago..Time.now) }) }
   scope :last_7_days, -> { where({ created_at: (7.days.ago..Time.now) }) }
   scope :last_30_days, -> { where({ created_at: (30.days.ago..Time.now) }) }
 
-  # :blackberry_browser is an override for the gem
+  # :blackberry_browser is an override for the gem. see `set_browser` method below
   enum browser: %i[
     nokia uc_browser phantom_js blackberry_browser opera edge ie firefox otter facebook instagram
     weibo qq alipay electron chrome safari micro_messenger generic
