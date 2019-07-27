@@ -45,3 +45,4 @@ Whenever gem sets crontab to run update rake task:
 
     $ whenever --update-crontab link_shortener_api
     $ crontab -l
+Thanks for reading!
